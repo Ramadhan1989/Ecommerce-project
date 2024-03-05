@@ -8,19 +8,29 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-  
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
-    public function redirect()
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index()
     {
         $usertype = Auth::user()->usertype;
         if($usertype == '1'){
             return view('admin.home');
+        }else{
+            return view('home');
         }
-        else {
-            return view('dashborard');
-        }
-
-        // return $usertype;
-
+        
     }
 }
